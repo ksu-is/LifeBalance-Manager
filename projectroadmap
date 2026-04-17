@@ -93,22 +93,21 @@
 
 ---
 
-# Codebase Evaluation (Sprint 1 Requirement)
+# Codebase Evaluation
 
 ## Repository Name:
-(To be filled)
-
+Planner
 ## Link:
-(To be filled)
+https://github.com/shreyashankar/planner
 
 ## What it does:
-(To be filled)
+A "smart" planner that determines when to study, work on assignments, etc. You must have a Google account because it works with Tasks and Calendar.
 
 ## Did it run:
-(To be filled)
+Yes(Eventually)
 
 ## Issues encountered:
-(To be filled)
+Required several additional downloads and ran on older Python.
 
 ## Usefulness:
-(To be filled)
+Good example to compare to, but running on old Python and the other issues leads to me wanting to look for other examples.
