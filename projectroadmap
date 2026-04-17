@@ -1,0 +1,114 @@
+# LifeBalance Manager – Project Roadmap
+
+## Sean Loubser
+
+---
+
+# Sprint 1 Tasks
+
+## Tasks
+- [ ] Define and document project idea in README.md   
+- [ ] Create initial project repository in GitHub organization  
+- [ ] Edit README.md with project description, purpose, and target users  
+- [ ] Create projectroadmap.md with initial task list  
+
+---
+
+## Research & Codebase Evaluation
+- [ ] Search GitHub for a related Python scheduling or planner application  
+- [ ] Select one repository relevant to scheduling or time management  
+- [ ] Clone the selected repository using GitHub Desktop  
+- [ ] Attempt to run the repository locally and install required dependencies  
+- [ ] Identify and document any errors or setup issues encountered  
+- [ ] Analyze how the repository structures scheduling logic  
+- [ ] Document findings in projectroadmap.md including:
+  - What the code does  
+  - Whether it runs successfully  
+  - Issues encountered  
+  - How it could be adapted for this project  
+
+---
+
+## Planning Core Features
+- [ ] Define input requirements such as work schedule, study time and hobbies
+- [ ] Define my expected output as a weekly schedule format  
+- [ ] Break down application into main components 
+
+---
+
+# Sprint 2: Core Development
+
+## Tasks
+- [ ] Create main.py file and initial program structure  
+- [ ] Implement user input for work schedule (days and hours)  
+- [ ] Implement user input for study time requirements  
+- [ ] Implement user input for hobbies and preferred time  
+- [ ] Design data structure to represent weekly schedule (list or dictionary)  
+- [ ] Implement logic to block out work hours in schedule  
+- [ ] Implement logic to add study time into available time slots  
+- [ ] Implement logic to fill remaining time with hobbies  
+- [ ] Output generated weekly schedule in readable format  
+- [ ] Test program with multiple input scenarios  
+- [ ] Commit at least 6 meaningful code updates with descriptive messages  
+
+---
+
+## Progress Tracking
+- [ ] Update projectroadmap.md with completed tasks (mark DONE)  
+- [ ] Add new tasks discovered during development  
+- [ ] Document any bugs or issues encountered  
+
+---
+
+# Sprint 3: Refinement, Testing, and Presentation
+
+## Tasks
+- [ ] Improve scheduling logic to prevent overlapping time blocks  
+- [ ] Add priority system (Work > School > Hobbies)  
+- [ ] Implement limits to prevent overloading daily schedules  
+- [ ] Improve output formatting for readability  
+- [ ] Add input validation for user entries  
+- [ ] Debug and fix errors discovered during testing  
+- [ ] Refactor code for clarity and add comments  
+
+---
+
+## Documentation & Presentation
+- [ ] Update README.md with final features and instructions to run program  
+- [ ] Create PowerPoint slide including:
+  - Project title  
+  - Team member(s)  
+  - Tagline describing the application  
+  - Optional visuals/screenshots  
+- [ ] Upload PowerPoint slide to D2L  
+- [ ] Upload PowerPoint slide to GitHub repository  
+
+---
+
+## Final Checks
+- [ ] Verify all commits are visible in GitHub  
+- [ ] Ensure at least 6+ meaningful commits exist  
+- [ ] Confirm roadmap reflects completed and in-progress tasks  
+- [ ] Test final version of application  
+
+---
+
+# Codebase Evaluation (Sprint 1 Requirement)
+
+## Repository Name:
+(To be filled)
+
+## Link:
+(To be filled)
+
+## What it does:
+(To be filled)
+
+## Did it run:
+(To be filled)
+
+## Issues encountered:
+(To be filled)
+
+## Usefulness:
+(To be filled)
