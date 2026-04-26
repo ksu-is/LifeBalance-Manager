@@ -6,6 +6,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
 def get_work_schedule():
     work_schedule = {}
     while True:
@@ -15,3 +16,7 @@ def get_work_schedule():
         hours = input(f"Enter work hours for {day} (e.g., 9-5): ")
         work_schedule[day] = hours
     return work_schedule
+    
+def get_study_time():
+    hours = int(input("Enter total study hours for the week: "))
+    return hours
