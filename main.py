@@ -55,3 +55,11 @@ def add_hobbies(schedule, hobbies):
     for hobby, hours in hobbies:
         schedule[days[day_index]].append(f"{hobby}: {hours} hrs")
         day_index = (day_index + 1) % len(days)
+
+def display_schedule(schedule):
+    print("\nWeekly Schedule:\n")
+    for day, tasks in schedule.items():
+        print(day)
+        for task in tasks:
+            print(" -", task)
+        print()
