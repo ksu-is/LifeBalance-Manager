@@ -20,3 +20,13 @@ def get_work_schedule():
 def get_study_time():
     hours = int(input("Enter total study hours for the week: "))
     return hours
+    
+def get_hobbies():
+    hobbies = []
+    while True:
+        hobby = input("Enter a hobby (or type 'done'): ")
+        if hobby.lower() == "done":
+            break
+        hours = int(input(f"How many hours for {hobby}? "))
+        hobbies.append((hobby, hours))
+    return hobbies
