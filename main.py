@@ -48,3 +48,10 @@ def add_study_time(schedule, study_hours):
     for day in days:
         if per_day > 0:
             schedule[day].append(f"Study: {per_day} hrs")
+
+def add_hobbies(schedule, hobbies):
+    days = list(schedule.keys())
+    day_index = 0
+    for hobby, hours in hobbies:
+        schedule[days[day_index]].append(f"{hobby}: {hours} hrs")
+        day_index = (day_index + 1) % len(days)
