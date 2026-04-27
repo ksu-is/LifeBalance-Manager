@@ -41,3 +41,10 @@ def add_work_to_schedule(schedule, work_schedule):
     for day, hours in work_schedule.items():
         if day in schedule:
             schedule[day].append(f"Work: {hours}")
+
+def add_study_time(schedule, study_hours):
+    days = list(schedule.keys())
+    per_day = study_hours // len(days)
+    for day in days:
+        if per_day > 0:
+            schedule[day].append(f"Study: {per_day} hrs")
