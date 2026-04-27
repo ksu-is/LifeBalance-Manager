@@ -36,3 +36,8 @@ def create_empty_schedule():
         "Monday": [], "Tuesday": [], "Wednesday": [], 
         "Thursday": [], "Friday": [], "Saturday": [], "Sunday": []
     }
+
+def add_work_to_schedule(schedule, work_schedule):
+    for day, hours in work_schedule.items():
+        if day in schedule:
+            schedule[day].append(f"Work: {hours}")
