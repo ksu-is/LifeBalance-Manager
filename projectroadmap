@@ -41,15 +41,15 @@
 ## Tasks
 - [x] Create main.py file and initial program structure  
 - [x] Implement user input for work schedule (days and hours)  
-- [ ] Implement user input for study time requirements  
-- [ ] Implement user input for hobbies and preferred time  
-- [ ] Design data structure to represent weekly schedule (list or dictionary)  
-- [ ] Implement logic to block out work hours in schedule  
-- [ ] Implement logic to add study time into available time slots  
-- [ ] Implement logic to fill remaining time with hobbies  
-- [ ] Output generated weekly schedule in readable format  
-- [ ] Test program with multiple input scenarios  
-- [ ] Commit at least 6 meaningful code updates with descriptive messages  
+- [x] Implement user input for study time requirements  
+- [x] Implement user input for hobbies and preferred time  
+- [x] Design data structure to represent weekly schedule (list or dictionary)  
+- [x] Implement logic to block out work hours in schedule  
+- [x] Implement logic to add study time into available time slots  
+- [x] Implement logic to fill remaining time with hobbies  
+- [x] Output generated weekly schedule in readable format  
+- [x] Test program with multiple input scenarios  
+- [x] Commit at least 6 meaningful code updates with descriptive messages  
 
 ---
 
