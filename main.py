@@ -30,3 +30,9 @@ def get_hobbies():
         hours = int(input(f"How many hours for {hobby}? "))
         hobbies.append((hobby, hours))
     return hobbies
+
+def create_empty_schedule():
+    return {
+        "Monday": [], "Tuesday": [], "Wednesday": [], 
+        "Thursday": [], "Friday": [], "Saturday": [], "Sunday": []
+    }
