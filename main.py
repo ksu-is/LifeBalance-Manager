@@ -63,3 +63,14 @@ def display_schedule(schedule):
         for task in tasks:
             print(" -", task)
         print()
+
+def main():
+    print("Welcome to LifeBalance Manager")
+    work_schedule = get_work_schedule()
+    study_hours = get_study_time()
+    hobbies = get_hobbies()
+    schedule = create_empty_schedule()
+    add_work_to_schedule(schedule, work_schedule)
+    add_study_time(schedule, study_hours)
+    add_hobbies(schedule, hobbies)
+    display_schedule(schedule)
