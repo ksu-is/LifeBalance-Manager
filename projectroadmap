@@ -54,28 +54,28 @@
 ---
 
 ## Progress Tracking
-- [ ] Update projectroadmap.md with completed tasks (mark DONE)  
-- [ ] Add new tasks discovered during development  
-- [ ] Document any bugs or issues encountered  
+- [x] Update projectroadmap.md with completed tasks (mark DONE)  
+- [x] Add new tasks discovered during development  
+- [x] Document any bugs or issues encountered  
 
 ---
 
 # Sprint 3: Refinement, Testing, and Presentation
 
 ## Tasks
-- [ ] Improve scheduling logic to prevent overlapping time blocks  
-- [ ] Add priority system (Work > School > Hobbies)  
-- [ ] Implement limits to prevent overloading daily schedules  
-- [ ] Improve output formatting for readability  
-- [ ] Add input validation for user entries  
-- [ ] Debug and fix errors discovered during testing  
-- [ ] Refactor code for clarity and add comments  
+- [x] Improve scheduling logic to prevent overlapping time blocks  
+- [x] Add priority system (Work > School > Hobbies)  
+- [x] Implement limits to prevent overloading daily schedules  
+- [x] Improve output formatting for readability  
+- [x] Add input validation for user entries  
+- [x ] Debug and fix errors discovered during testing  
+- [x ] Refactor code for clarity and add comments  
 
 ---
 
 ## Documentation & Presentation
-- [ ] Update README.md with final features and instructions to run program  
-- [ ] Create PowerPoint slide including:
+- [x] Update README.md with final features and instructions to run program  
+- [x] Create PowerPoint slide including:
   - Project title  
   - Team member(s)  
   - Tagline describing the application  
