@@ -1,124 +1,127 @@
 import tkinter as tk
 from tkinter import messagebox
+import re
 
 # ---------------- LOGIC FUNCTIONS ---------------- #
 
 def create_empty_schedule():
-    return {
-        "Monday": [], "Tuesday": [], "Wednesday": [],
-        "Thursday": [], "Friday": [], "Saturday": [], "Sunday": []
-    }
+    return {day: [] for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
 
-def add_work_to_schedule(schedule, work_schedule):
-    for day, hours in work_schedule.items():
-        if day in schedule:
-            schedule[day].append(f"Work: {hours}")
+def get_end_time(work_str):
+    """
+    Attempts to find the end time in a string like '9am-5pm' or '17:00'.
+    Defaults to 5:00 PM (17.0) if it can't parse it.
+    """
+    work_str = work_str.lower().replace(" ", "")
+    # Look for the part after the hyphen
+    match = re.search(r'-(\d+)(am|pm|:)?', work_str)
+    if match:
+        time_val = int(match.group(1))
+        # Simple conversion to 24hr format
+        if "pm" in work_str and time_val < 12:
+            return time_val + 12
+        return time_val
+    return 17.0  # Default 5 PM
 
-def add_study_time(schedule, study_hours):
+def format_time(decimal_hour):
+    """Converts 17.5 to '5:30 PM'"""
+    hour = int(decimal_hour)
+    minutes = int((decimal_hour - hour) * 60)
+    suffix = "PM" if hour >= 12 else "AM"
+    display_hour = hour % 12
+    if display_hour == 0: display_hour = 12
+    return f"{display_hour}:{minutes:02d} {suffix}"
+
+def generate_time_blocks(schedule, work_data, study_total, hobbies):
     days = list(schedule.keys())
-    # Use floor division to avoid float results
-    per_day = study_hours // len(days)
-    leftover = study_hours % len(days)
+    
+    # 1. Distribute hour counts
+    study_per_day = study_total / 7
     
     for i, day in enumerate(days):
-        daily_total = per_day + (1 if i < leftover else 0)
-        if daily_total > 0:
-            schedule[day].append(f"Study: {daily_total} hrs")
-
-def add_hobbies(schedule, hobbies):
-    days = list(schedule.keys())
-    for i, (hobby, hours) in enumerate(hobbies):
-        # Distribute hobbies across days using modulo
-        target_day = days[i % len(days)]
-        schedule[target_day].append(f"{hobby}: {hours} hrs")
-
-def format_schedule(schedule):
-    output = "--- YOUR WEEKLY SCHEDULE ---\n\n"
-    for day, tasks in schedule.items():
-        output += f"【 {day.upper()} 】\n"
-        if not tasks:
-            output += "  - No tasks scheduled\n"
-        for task in tasks:
-            output += f"  • {task}\n"
-        output += "\n"
-    return output
+        # Start time is either after work or 9 AM
+        current_time = 9.0
+        work_info = work_data.get(day, "")
+        
+        if work_info:
+            schedule[day].append(f"WORK: {work_info}")
+            current_time = get_end_time(work_info) + 0.5 # 30 min buffer after work
+        
+        # 2. Assign Study Block
+        if study_per_day > 0:
+            start_str = format_time(current_time)
+            end_str = format_time(current_time + study_per_day)
+            schedule[day].append(f"STUDY: {start_str} - {end_str}")
+            current_time += study_per_day + 0.25 # 15 min break
+            
+        # 3. Assign Hobby Blocks
+        for h_name, h_total in hobbies:
+            h_per_day = h_total / 7
+            if h_per_day > 0:
+                start_str = format_time(current_time)
+                end_str = format_time(current_time + h_per_day)
+                schedule[day].append(f"{h_name}: {start_str} - {end_str}")
+                current_time += h_per_day + 0.25
 
 # ---------------- GUI APP ---------------- #
 
 class LifeBalanceApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("LifeBalance Manager Pro")
-        self.root.geometry("500x700")
+        self.root.title("LifeBalance Manager")
+        self.root.geometry("600x850")
 
-        # Work Schedule Section
-        tk.Label(root, text="Work Schedule", font=('Helvetica', 10, 'bold')).pack(pady=(10, 0))
-        tk.Label(root, text="(e.g., 9am-5pm or Shift A)", font=('Helvetica', 8, 'italic')).pack()
-        
+        tk.Label(root, text="LifeBalance Manager", font=('Helvetica', 16, 'bold')).pack(pady=10)
+
+        # Work Section
+        tk.Label(root, text="Work Hours (Format: 9am-5pm)", font=('Helvetica', 10, 'bold')).pack()
         self.work_entries = {}
-        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-        
-        for day in days:
-            frame = tk.Frame(root)
-            frame.pack(fill="x", padx=50)
-            tk.Label(frame, text=day, width=10, anchor="w").pack(side="left")
-            entry = tk.Entry(frame)
-            entry.pack(side="right", expand=True, fill="x")
-            self.work_entries[day] = entry
+        for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
+            f = tk.Frame(root); f.pack(fill="x", padx=100)
+            tk.Label(f, text=day, width=10).pack(side="left")
+            e = tk.Entry(f); e.pack(side="right", expand=True, fill="x")
+            self.work_entries[day] = e
 
-        # Study Hours Section
+        # Study Section
         tk.Label(root, text="\nTotal Weekly Study Hours", font=('Helvetica', 10, 'bold')).pack()
-        self.study_entry = tk.Entry(root, width=10)
-        self.study_entry.insert(0, "0")  # Default value to prevent crash
-        self.study_entry.pack()
+        self.study_entry = tk.Entry(root, width=10); self.study_entry.insert(0, "7"); self.study_entry.pack()
 
         # Hobbies Section
-        tk.Label(root, text="\nHobbies", font=('Helvetica', 10, 'bold')).pack()
-        tk.Label(root, text="Format: Gym:2, Reading:1 (comma separated)", font=('Helvetica', 8, 'italic')).pack()
-        self.hobby_entry = tk.Entry(root, width=50)
-        self.hobby_entry.pack(pady=5)
+        tk.Label(root, text="\nHobbies (Format: Gym:7, Piano:3)", font=('Helvetica', 10, 'bold')).pack()
+        self.hobby_entry = tk.Entry(root, width=40); self.hobby_entry.insert(0, "Gym:7"); self.hobby_entry.pack()
 
-        # Generate Button
-        tk.Button(root, text="Generate Schedule", bg="#4CAF50", fg="white", 
-                  font=('Helvetica', 10, 'bold'), command=self.generate_schedule).pack(pady=20)
+        tk.Button(root, text="GENERATE TIME SLOTS", bg="#2ECC71", fg="white", 
+                  font=('Helvetica', 10, 'bold'), command=self.generate).pack(pady=20)
 
-        # Output Display
-        self.output_text = tk.Text(root, height=15, width=55, font=('Consolas', 10))
+        self.output_text = tk.Text(root, height=20, width=70, font=('Consolas', 9))
         self.output_text.pack(padx=20, pady=10)
 
-    def generate_schedule(self):
+    def generate(self):
         try:
-            # 1. Parse Work
-            work_schedule = {day: entry.get().strip() for day, entry in self.work_entries.items() if entry.get().strip()}
-
-            # 2. Parse Study (With error handling)
-            study_input = self.study_entry.get().strip()
-            study_hours = int(study_input) if study_input.isdigit() else 0
-
-            # 3. Parse Hobbies (With safe splitting)
-            hobbies = []
-            hobby_input = self.hobby_entry.get().strip()
-            if hobby_input:
-                items = hobby_input.split(",")
-                for item in items:
-                    if ":" in item:
-                        name, hours = item.split(":")
-                        if hours.strip().isdigit():
-                            hobbies.append((name.strip(), int(hours.strip())))
-            
-            # 4. Build and Display
             schedule = create_empty_schedule()
-            add_work_to_schedule(schedule, work_schedule)
-            add_study_time(schedule, study_hours)
-            add_hobbies(schedule, hobbies)
+            work_data = {d: e.get().strip() for d, e in self.work_entries.items() if e.get()}
+            
+            # Parse Study
+            study_hrs = float(self.study_entry.get())
+            
+            # Parse Hobbies
+            hobbies = []
+            h_raw = self.hobby_entry.get().split(",")
+            for item in h_raw:
+                if ":" in item:
+                    name, hrs = item.split(":")
+                    hobbies.append((name.strip().upper(), float(hrs.strip())))
+
+            generate_time_blocks(schedule, work_data, study_hrs, hobbies)
 
             self.output_text.delete("1.0", tk.END)
-            self.output_text.insert(tk.END, format_schedule(schedule))
-
+            for day, tasks in schedule.items():
+                self.output_text.insert(tk.END, f"--- {day.upper()} ---\n")
+                for t in tasks: self.output_text.insert(tk.END, f"  {t}\n")
+                self.output_text.insert(tk.END, "\n")
+                
         except Exception as e:
-            messagebox.showerror("Oops!", f"Something went wrong: {e}\nCheck your hobby formatting!")
-
-# ---------------- RUN APP ---------------- #
+            messagebox.showerror("Error", "Check your inputs! Use numbers for hours.")
 
 if __name__ == "__main__":
     root = tk.Tk()
