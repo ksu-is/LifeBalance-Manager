@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-
+# ---------------- LOGIC FUNCTIONS ---------------- #
 
 def create_empty_schedule():
     return {
@@ -43,6 +43,7 @@ def format_schedule(schedule):
         output += "\n"
     return output
 
+# ---------------- GUI APP ---------------- #
 
 class LifeBalanceApp:
     def __init__(self, root):
@@ -116,6 +117,8 @@ class LifeBalanceApp:
 
         except Exception as e:
             messagebox.showerror("Oops!", f"Something went wrong: {e}\nCheck your hobby formatting!")
+
+# ---------------- RUN APP ---------------- #
 
 if __name__ == "__main__":
     root = tk.Tk()
